@@ -1,6 +1,7 @@
 package checkout;
 
 import java.math.BigDecimal;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CheckOutApp {
@@ -66,13 +67,25 @@ public class CheckOutApp {
     }
 
     private static BigDecimal collectBigDecimalInput(String prompt) {
-        display(prompt);
-        return scanner.nextBigDecimal();
+        try {
+            display(prompt);
+            return scanner.nextBigDecimal();
+        } catch (InputMismatchException inputMismatchException) {
+            display("Invalid input try again");
+            clearScreen();
+            return collectBigDecimalInput(prompt);
+        }
     }
 
     private static int collectIntegerInput(String prompt) {
-        display(prompt);
-        return scanner.nextInt();
+        try {
+            display(prompt);
+            return scanner.nextInt();
+        } catch (InputMismatchException inputMismatchException) {
+            display("Invalid Input try again");
+            clearScreen();
+            return collectIntegerInput(prompt);
+        }
     }
 
     private static String collectStringInput(String prompt) {
