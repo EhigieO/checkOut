@@ -10,17 +10,17 @@ public class CheckOutApp {
     private static Cashier cashier;
 
     public static void main(String[] args) {
-        cashier = new Cashier(collectStringInput("What is your name? "));
+        cashier = new Cashier(ask("What is your name? "));
         startCustomerShoppingExperience();
 
     }
 
     private static void startCustomerShoppingExperience() {
-        String customerName = collectStringInput("What is the customer's Name");
+        String customerName = ask("What is the customer's Name");
         cart = new Cart(customerName);
         addNewItem();
         flushScanner();
-        String response = collectStringInput("Do you have another customer? ");
+        String response = ask("Do you have another customer? ");
         if (response.equalsIgnoreCase("yes")) startCustomerShoppingExperience();
         else exitApplication();
     }
@@ -31,13 +31,13 @@ public class CheckOutApp {
 
     private static void addNewItem() {
         clearScreen();
-        String itemName = collectStringInput("What did " + cart.getCustomerName() + " buy");
-        int quantity = collectIntegerInput("How many pieces? ");
-        BigDecimal unitPrice = collectBigDecimalInput("How much per unit? ");
+        String itemName = ask("What did " + cart.getCustomerName() + " buy");
+        int quantity = getIntResponseFor("How many pieces? ");
+        BigDecimal unitPrice = getBigDecimalResponseFor("How much per unit? ");
         Item item = new Item(itemName, unitPrice, quantity);
         cart.addItems(item);
         flushScanner();
-        String addMoreItem = collectStringInput("Add more Items from " + cart.getCustomerName() + "'s cart?");
+        String addMoreItem = ask("Add more Items from " + cart.getCustomerName() + "'s cart?");
         if (addMoreItem.equalsIgnoreCase("yes")) addNewItem();
         else checkCustomerOut();
 
@@ -45,11 +45,11 @@ public class CheckOutApp {
     }
 
     private static void checkCustomerOut() {
-        double percentageDiscount = collectBigDecimalInput("How much discount will he get (in percentage)").doubleValue();
+        double percentageDiscount = getBigDecimalResponseFor("How much discount will he get (in percentage)").doubleValue();
         clearScreen();
         print(cashier.generateCustomerBill(cart, percentageDiscount));
         flushScanner();
-        BigDecimal amountPaid = collectBigDecimalInput("How much did the customer give to you?");
+        BigDecimal amountPaid = getBigDecimalResponseFor("How much did the customer give to you?");
         clearScreen();
         print(cashier.generateCustomerInvoice(cart, amountPaid, percentageDiscount));
     }
@@ -66,29 +66,29 @@ public class CheckOutApp {
         printable.print();
     }
 
-    private static BigDecimal collectBigDecimalInput(String prompt) {
+    private static BigDecimal getBigDecimalResponseFor(String prompt) {
         try {
             display(prompt);
             return scanner.nextBigDecimal();
         } catch (InputMismatchException inputMismatchException) {
             display("Invalid input try again");
             clearScreen();
-            return collectBigDecimalInput(prompt);
+            return getBigDecimalResponseFor(prompt);
         }
     }
 
-    private static int collectIntegerInput(String prompt) {
+    private static int getIntResponseFor(String prompt) {
         try {
             display(prompt);
             return scanner.nextInt();
         } catch (InputMismatchException inputMismatchException) {
             display("Invalid Input try again");
             clearScreen();
-            return collectIntegerInput(prompt);
+            return getIntResponseFor(prompt);
         }
     }
 
-    private static String collectStringInput(String prompt) {
+    private static String ask(String prompt) {
         display(prompt);
         return scanner.nextLine();
     }
