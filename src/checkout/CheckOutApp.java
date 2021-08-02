@@ -4,9 +4,10 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class CheckOutApp {
+    static Scanner scanner = new Scanner(System.in);
     private static Cart cart;
     private static Cashier cashier;
-    static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         cashier = new Cashier(collectStringInput("What is your name? "));
         startCustomerShoppingExperience();
@@ -19,7 +20,7 @@ public class CheckOutApp {
         addNewItem();
         flushScanner();
         String response = collectStringInput("Do you have another customer? ");
-        if(response.equalsIgnoreCase("yes")) startCustomerShoppingExperience();
+        if (response.equalsIgnoreCase("yes")) startCustomerShoppingExperience();
         else exitApplication();
     }
 
@@ -29,14 +30,14 @@ public class CheckOutApp {
 
     private static void addNewItem() {
         clearScreen();
-        String itemName = collectStringInput("What did "+ cart.getCustomerName()+ " buy");
+        String itemName = collectStringInput("What did " + cart.getCustomerName() + " buy");
         int quantity = collectIntegerInput("How many pieces? ");
         BigDecimal unitPrice = collectBigDecimalInput("How much per unit? ");
         Item item = new Item(itemName, unitPrice, quantity);
         cart.addItems(item);
         flushScanner();
-        String addMoreItem = collectStringInput("Add more Items from " + cart.getCustomerName()+"'s cart?");
-        if(addMoreItem.equalsIgnoreCase("yes")) addNewItem();
+        String addMoreItem = collectStringInput("Add more Items from " + cart.getCustomerName() + "'s cart?");
+        if (addMoreItem.equalsIgnoreCase("yes")) addNewItem();
         else checkCustomerOut();
 
 
@@ -49,7 +50,7 @@ public class CheckOutApp {
         flushScanner();
         BigDecimal amountPaid = collectBigDecimalInput("How much did the customer give to you?");
         clearScreen();
-        print(cashier.generateCustomerInvoice(cart, amountPaid,percentageDiscount));
+        print(cashier.generateCustomerInvoice(cart, amountPaid, percentageDiscount));
     }
 
     private static void clearScreen() {
@@ -78,7 +79,8 @@ public class CheckOutApp {
         display(prompt);
         return scanner.nextLine();
     }
-    public static void display(String message){
+
+    public static void display(String message) {
         System.out.println(message);
     }
 }

@@ -5,8 +5,9 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 public class CashierTest {
+
     @Test
-    void cashier_canPrintInvoiceTest(){
+    void cashier_canPrintInvoiceTest() {
         Cashier cashier = new Cashier(System.getenv().get("userName"));
         Cart cart = new Cart("Ojo");
         Item item1 = new Item("Agege Bread", BigDecimal.valueOf(250), 2);
