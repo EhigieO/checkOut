@@ -12,14 +12,14 @@ public class Cart {
         this.ownerName = ownerName;
     }
 
-    public void addItems(Item item) {
+    public void add(Item item) {
         items.add(item);
     }
 
     public int getTotalProductsInCart() {
         int total = 0;
-        for (Item item: items){
-            total+=item.getQuantityPurchased();
+        for (Item item : items) {
+            total += item.getQuantityPurchased();
         }
         return total;
     }
@@ -30,18 +30,18 @@ public class Cart {
 
     public BigDecimal calculateTotalPriceOfItems() {
         BigDecimal total = BigDecimal.ZERO;
-        for(Item item: items){
-          total =total.add(item.calculatePrice());
+        for (Item item : items) {
+            total = total.add(item.calculatePrice());
         }
         return total;
     }
 
-    public String toString(){
-        StringBuilder toString= new StringBuilder();
-        for(Item item: items){
+    public String toString() {
+        StringBuilder toString = new StringBuilder();
+        for (Item item : items) {
             toString.append(item.toString()).append("\n");
         }
-        return toString.substring(0,toString.length()-1);
+        return toString.substring(0, toString.length() - 1);
     }
 
     public String getCustomerName() {

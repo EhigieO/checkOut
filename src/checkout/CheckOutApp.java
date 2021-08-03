@@ -35,10 +35,10 @@ public class CheckOutApp {
         int quantity = getIntResponseFor("How many pieces? ");
         BigDecimal unitPrice = getBigDecimalResponseFor("How much per unit? ");
         Item item = new Item(itemName, unitPrice, quantity);
-        cart.addItems(item);
+        cart.add(item);
         flushScanner();
-        String addMoreItem = ask("Add more Items from " + cart.getCustomerName() + "'s cart?");
-        if (addMoreItem.equalsIgnoreCase("yes")) addNewItem();
+        String cashierResponse = ask("Add more Items from " + cart.getCustomerName() + "'s cart?");
+        if (cashierResponse.equalsIgnoreCase("yes")) addNewItem();
         else checkCustomerOut();
 
 
@@ -51,7 +51,7 @@ public class CheckOutApp {
         flushScanner();
         BigDecimal amountPaid = getBigDecimalResponseFor("How much did the customer give to you?");
         clearScreen();
-        print(cashier.generateCustomerInvoice(cart, amountPaid, percentageDiscount));
+        print(cashier.generateCustomerReceipt(cart, amountPaid, percentageDiscount));
     }
 
     private static void clearScreen() {

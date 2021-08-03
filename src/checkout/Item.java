@@ -6,6 +6,7 @@ import java.util.Formatter;
 public class Item {
     private final Product product;
     private final int quantityPurchased;
+
     public Item(String itemName, BigDecimal unitPrice, int quantityPurchased) {
         product = new Product(itemName, unitPrice);
         this.quantityPurchased = quantityPurchased;
@@ -28,7 +29,7 @@ public class Item {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         Formatter formatter = new Formatter();
         return String.format("%25s    %3d  %8.2f     %8.2f", formatter.format(product.getName()), quantityPurchased, product.getPrice().floatValue(), calculatePrice());
     }

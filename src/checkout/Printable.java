@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 public interface Printable {
 
 
-    static String generateCustomerInvoice(Cart cart, BigDecimal amountPaid, double discountPercentage, String cashierName) {
+    static String generateCustomerReceipt(Cart cart, BigDecimal amountPaid, double discountPercentage, String cashierName) {
         return generateCompanyInvoiceHeader(cart.getCustomerName(), cashierName) + "\n" + cart + "\n" + generateInvoiceFooter(cart, amountPaid, discountPercentage);
 
     }
