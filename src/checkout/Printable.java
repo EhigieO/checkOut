@@ -82,13 +82,6 @@ public interface Printable {
                 """, total, discountAmount, vatAtSevenPointFivePercent, billTotal, billTotal);
     }
 
-    private static void printInvoice(Cart cart, BigDecimal amountPaid, double discountPercentage, String cashierName) {
-        String invoice = "";
-        invoice += generateCompanyInvoiceHeader(cart.getCustomerName(), cashierName);
-        invoice += getItemsFrom(cart);
-        invoice += generateInvoiceFooter(cart, amountPaid, discountPercentage);
-        display(invoice);
-    }
 
     private static BigDecimal calculateCustomerBillTotal(BigDecimal total, BigDecimal discountAmount, BigDecimal vat) {
         return vat.add(total).subtract(discountAmount);
@@ -96,14 +89,6 @@ public interface Printable {
 
     private static BigDecimal calculatePercentageAmount(BigDecimal total, double percentageValue) {
         return total.multiply(BigDecimal.valueOf(percentageValue));
-    }
-
-    private static String getItemsFrom(Cart cart) {
-        return "\n" + cart.toString();
-    }
-
-    private static void display(String message) {
-        System.out.println(message);
     }
 
     void print();
